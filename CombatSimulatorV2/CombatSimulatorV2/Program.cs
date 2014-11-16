@@ -12,6 +12,26 @@ namespace CombatSimulatorV2
         {
         }
     }
+    class Player
+    {
+        enum AttackType
+        {
+            Tetris =1,
+            BurnTPS,
+            Heal,
+            SmashPrinter,
+            AccountingVirus
+        }
+        public double HP { get; set; }
+        public bool IsAlive
+        {
+            get { if (this.HP > 0.0) { return true; } else { return false; } }
+        }
+        public Player(double health)
+        {
+            this.HP = health;
+        }
+    }
 
     class Enemy
     {
