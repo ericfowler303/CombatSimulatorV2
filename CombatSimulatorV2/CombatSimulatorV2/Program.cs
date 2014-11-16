@@ -41,6 +41,14 @@ namespace CombatSimulatorV2
                 this.Player.DoAttack(this.Enemy);
                 this.Enemy.DoAttack(this.Player);
             }
+            // Someone died so determine who's the winner
+            if (this.Player.IsAlive) 
+            {
+                Console.WriteLine("Congrats you've defeated Bill Lumbergh");
+                Console.WriteLine("You caused his ego lots of damage and wasted plenty of company time & money in the process.");
+                if (this.Player.AccountingVirusRunning) { Console.WriteLine("The virus stole ${0} while you were at work doing nothing productive.", this.Player.VirusMoney); }
+                Console.WriteLine("With Joanna in tow, you finally leave the pointless cublical farm and the rat race behind.");
+            }
         }
         /// <summary>
         /// Prints out all of the current combat info for each turn
@@ -66,8 +74,8 @@ namespace CombatSimulatorV2
         }
         private Random rng = new Random();
         private bool HasPrinterBeenSmashed { get; set; }
-        private bool AccountingVirusRunning { get; set; }
-        private double VirusMoney { get; set; }
+        public bool AccountingVirusRunning { get; set; }
+        public double VirusMoney { get; set; }
         public double HP { get; set; }
         public bool IsAlive
         {
