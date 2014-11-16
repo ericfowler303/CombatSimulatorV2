@@ -41,13 +41,18 @@ namespace CombatSimulatorV2
             while (this.Player.IsAlive && this.Enemy.IsAlive)
             {
                 DisplayCombatInfo();
+                Console.WriteLine();
                 this.Player.DoAttack(this.Enemy);
+                Console.WriteLine();
                 this.Enemy.DoAttack(this.Player);
+                // Give the player some time to read the results before starting a new turn
+                System.Threading.Thread.Sleep(2200);
             }
             // Someone died so determine who's the winner
             if (this.Player.IsAlive) 
             {
                 // Player won
+                Console.Clear();
                 Console.WriteLine("Congrats you've defeated Bill Lumbergh");
                 Console.WriteLine("You caused his ego lots of damage and wasted plenty of company time & money in the process.");
                 if (this.Player.AccountingVirusRunning) { Console.WriteLine("The virus stole ${0} while you were at work doing nothing productive.", this.Player.VirusMoney); }
@@ -56,18 +61,26 @@ namespace CombatSimulatorV2
             else
             {
                 // Enemy won
+                Console.Clear();
                 Console.WriteLine("Ummmm yea....");
                 System.Threading.Thread.Sleep(900);
                 Console.WriteLine("I'm gonna need you to come in on Sunday and work overtime....");
                 System.Threading.Thread.Sleep(1000);
                 Console.WriteLine("for the rest of your life");
             }
+
+            // Keep the console open to read the end condition
+            Console.ReadKey();
         }
         /// <summary>
         /// Prints out all of the current combat info for each turn
         /// </summary>
         public void DisplayCombatInfo()
         {
+            Console.Clear();
+            Console.Write("Office Space\n\n");
+            Console.WriteLine("Bill Lumbergh has ${0}", Math.Round(this.Enemy.HP, 2));
+            Console.WriteLine("You have ${0} to your name", Math.Round(this.Player.HP, 2));
 
         }
         /// <summary>
@@ -152,6 +165,7 @@ namespace CombatSimulatorV2
                     break;
                 case AttackType.BurnTPS:
                     tempPlayerDamage = rng.Next(10, 16);
+                    enemy.HP -= tempPlayerDamage;
                     Console.WriteLine("Burning TPS Reports hit {0} for ${1} of wasted company money", enemy.Name, tempPlayerDamage);
                     break;
                 case AttackType.Heal:
@@ -159,7 +173,7 @@ namespace CombatSimulatorV2
                     Console.WriteLine("Spending time with Joanna has helped you heal your wounds from your miserable cubicle life.");
                     break;
                 case AttackType.SmashPrinter:
-                    if (this.HasPrinterBeenSmashed) { if (rng.NextDouble() >= 0.5) { tempPlayerDamage = rng.Next(20, 36) * (rng.NextDouble() + 1); } }
+                    if (this.HasPrinterBeenSmashed) { if (rng.NextDouble() >= 0.5) { tempPlayerDamage = rng.Next(20, 36) * (rng.NextDouble() + 1); enemy.HP -= tempPlayerDamage; } }
                     else
                     {
                         // The attack missed
@@ -181,6 +195,8 @@ namespace CombatSimulatorV2
                     {
                         // Start the virus
                         this.AccountingVirusRunning = true;
+                        // Give the virus a starting value
+                        this.VirusMoney = rng.Next(1, 9);
                     } // Print this line if has been running already or it just started running
                     Console.WriteLine("The accounting virus is on the loose, hopefully it only steals a few fractions of a penny at a time.");
                     break;
@@ -189,8 +205,6 @@ namespace CombatSimulatorV2
                     break;
             }
 
-            // Check if the virus is running and have it run every turn
-            if (this.AccountingVirusRunning) { VirusRunner(); }
         }
         private AttackType ChooseAttack()
         {
@@ -217,6 +231,9 @@ namespace CombatSimulatorV2
             {
                 Console.WriteLine("5. Launch Michael Bolton's accounting virus onto the network (wastes a turn)");
             }
+
+            // Check if the virus is running and have it run every turn
+            if (this.AccountingVirusRunning) { VirusRunner(); }
 
             // Ask for the user choice
             Console.Write("Which option do you want to perform: ");
