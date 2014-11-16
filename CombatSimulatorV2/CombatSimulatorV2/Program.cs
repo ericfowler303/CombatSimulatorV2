@@ -44,10 +44,20 @@ namespace CombatSimulatorV2
             // Someone died so determine who's the winner
             if (this.Player.IsAlive) 
             {
+                // Player won
                 Console.WriteLine("Congrats you've defeated Bill Lumbergh");
                 Console.WriteLine("You caused his ego lots of damage and wasted plenty of company time & money in the process.");
                 if (this.Player.AccountingVirusRunning) { Console.WriteLine("The virus stole ${0} while you were at work doing nothing productive.", this.Player.VirusMoney); }
                 Console.WriteLine("With Joanna in tow, you finally leave the pointless cublical farm and the rat race behind.");
+            }
+            else
+            {
+                // Enemy won
+                Console.WriteLine("Ummmm yea....");
+                System.Threading.Thread.Sleep(900);
+                Console.WriteLine("I'm gonna need you to come in on Sunday and work overtime....");
+                System.Threading.Thread.Sleep(1000);
+                Console.WriteLine("for the rest of your life");
             }
         }
         /// <summary>
