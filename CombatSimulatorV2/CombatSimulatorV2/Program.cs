@@ -12,6 +12,19 @@ namespace CombatSimulatorV2
         {
         }
     }
+    class Game
+    {
+        public Player Player { get; set; }
+        public Enemy Enemy { get; set; }
+        public Game()
+        {
+
+        }
+    }
+
+    /// <summary>
+    /// A Player that contains all of it's attacks and console messages
+    /// </summary>
     class Player
     {
         enum AttackType
@@ -31,6 +44,10 @@ namespace CombatSimulatorV2
         {
             get { if (this.HP > 0.0) { return true; } else { return false; } }
         }
+        /// <summary>
+        /// Create a new Player with parameters reset
+        /// </summary>
+        /// <param name="health">Starting health (HP)</param>
         public Player(double health)
         {
             this.HP = health;
@@ -141,30 +158,55 @@ namespace CombatSimulatorV2
 
         }
     }
-
+    /// <summary>
+    /// An Enemy which contains it's attacks and all console messages
+    /// </summary>
     class Enemy
     {
         private Random rng = new Random();
+        private List<string> billQuote = new List<string>() {
+        "Umm yea...I'm gonna need those TPS Reports....ASAP...",
+        "Umm yea...Did you read the memo about the TPS Reports",
+        "Ah, ah, I almost forgot... I'm also going to need you to go ahead and come in on Sunday, too. We, uhhh, lost some people this week and we sorta need to play catch-up. Mmmmmkay? Thaaaaaanks.",
+        "....So, if you could do that, that would be great...",
+        "Hello Peter, what's happening? Listen, are you gonna have those TPS reports for us this afternoon?",
+        "Oh, and next Friday is Hawaiian shirt day.......So, you know, if you want to you can go ahead and wear a Hawaiian shirt and jeans."};
         public string Name { get; set; }
         public double HP { get; set; }
         public bool IsAlive
         {
             get { if (this.HP > 0.0) { return true; } else { return false; } }
         }
-        
+        /// <summary>
+        /// Create a new Enemy
+        /// </summary>
+        /// <param name="name">Define name of enemy</param>
+        /// <param name="health">Starting health (HP)</param>
         public Enemy(string name, double health)
         {
             this.Name = name;
             this.HP = health;
         }
-
+        /// <summary>
+        /// Attacks the player and decrements their HP
+        /// </summary>
+        /// <param name="player">Player to attack</param>
         public void DoAttack(Player player)
         {
+            int tempPlayerDamage = 0;
             // Has a 80% chance of hitting
             if (rng.NextDouble() >= 0.2)
             {
                 // A hit, between $5-$15 loss for the player
-                player.HP -= rng.Next(5, 16);
+                tempPlayerDamage = rng.Next(5, 16);
+                player.HP -= tempPlayerDamage;
+                Console.WriteLine(billQuote[rng.Next(billQuote.Count)]); // Print random Bill Lubergh Quote
+                Console.WriteLine("{0} hit you with a ${1} fine", this.Name, tempPlayerDamage);
+            }
+            else
+            {
+                // Missed the attack
+                Console.WriteLine("Bill Lumbergh somehow missed your desk in his rounds today");
             }
         }
     }
