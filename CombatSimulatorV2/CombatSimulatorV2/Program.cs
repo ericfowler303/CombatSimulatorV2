@@ -10,13 +10,42 @@ namespace CombatSimulatorV2
     {
         static void Main(string[] args)
         {
+            // Start the game
+            Game game = new Game();
+            game.PlayGame();
         }
     }
+    /// <summary>
+    /// Class to start and run the game until the ending condition is hit
+    /// </summary>
     class Game
     {
         public Player Player { get; set; }
         public Enemy Enemy { get; set; }
+        /// <summary>
+        /// Initalize the game with the starting enemy and player
+        /// </summary>
         public Game()
+        {
+            this.Player = new Player(100);
+            this.Enemy = new Enemy("Bill Lumbergh", 200);
+        }
+        /// <summary>
+        /// A function that handles the basic game logic until the end condition is hit
+        /// </summary>
+        public void PlayGame()
+        {
+            while (this.Player.IsAlive && this.Enemy.IsAlive)
+            {
+                DisplayCombatInfo();
+                this.Player.DoAttack(this.Enemy);
+                this.Enemy.DoAttack(this.Player);
+            }
+        }
+        /// <summary>
+        /// Prints out all of the current combat info for each turn
+        /// </summary>
+        public void DisplayCombatInfo()
         {
 
         }
