@@ -35,6 +35,9 @@ namespace CombatSimulatorV2
         /// </summary>
         public void PlayGame()
         {
+            // Display the intro screen
+            DisplayIntroScreen();
+
             while (this.Player.IsAlive && this.Enemy.IsAlive)
             {
                 DisplayCombatInfo();
@@ -66,6 +69,39 @@ namespace CombatSimulatorV2
         public void DisplayCombatInfo()
         {
 
+        }
+        /// <summary>
+        /// Display the intro ASCII art only once
+        /// </summary>
+        private void DisplayIntroScreen()
+        {
+            // Start the game off
+            // Print out an ASCII Art version of the Initech Logo
+            Console.WriteLine(".................,+++,..................");
+            Console.WriteLine("...............,+++++++=,...............");
+            Console.WriteLine("............,+++++++++++++,.............");
+            Console.WriteLine("...........,+++++,,,,,+++++,,...........");
+            Console.WriteLine("...........,,,,,   I,,,,+,  ,...........");
+            Console.WriteLine("...........,,,,    I,,,,,   ,...........");
+            Console.WriteLine("........,:,,,,,    ,,,,,,   ,,,.........");
+            Console.WriteLine("......,+++++,,, I,++++,,, ,+++++,,......");
+            Console.WriteLine("...,~+++++++++,=++++++++,++++++++++,....");
+            Console.WriteLine(".,+++++++,,++++++++++++++++++,,++++++,..");
+            Console.WriteLine(".,,:++,, ,,,,+++, ,, ,,,++,~ ,,,,+++, ,.");
+            Console.WriteLine(".,,,,    ,,,,,,   ,: ,,,,    ,,,,,,   ,.");
+            Console.WriteLine(".,,,,    ,,,,,7   ,, ,,,,    ,,,,,,   ,.");
+            Console.WriteLine(".,,,,   ,+,,,,7   ,,,,,,,   ,+,,,,,   ,.");
+            Console.WriteLine(".,,,, ,+++++,,7   ...,,,,7,+++++,,,   ,.");
+            Console.WriteLine(".,,,,,,++++++,    ...,,,,,++++++,,    ,.");
+            Console.WriteLine(".,,,,,,,,+,      ,...,,,,,,,,+,       ,.");
+            Console.WriteLine("...,,,,,,      ,.......,,,,,,      ,....");
+            Console.WriteLine(".....,,,,    ,...........,,,,    ,......");
+            Console.WriteLine("........,?,,...............,,  ,........");
+            Console.WriteLine("..........Welcome To Initech.,..........");
+            Console.WriteLine("      What's good for the COMPANY?\n");
+
+            Console.WriteLine("Press any key to get to work.");
+            Console.ReadKey();
         }
     }
 
